@@ -16,7 +16,7 @@ userurl = LOAD '/import_data/userurl/gn/cm/heilongjiang_v2/20151218/*' AS (sttim
 --yk_vid4 = filter userurl by (host matches '.*\\.youku\\.com') and (uri matches '/embed/[A-Za-z0-9]+=+.*');
 --yk_vid5 = filter userurl by (host matches '.*\\.youku\\.com') and (uri matches '/player\\.php/.*sid/[A-Za-z0-9]+=+/.*v.swf.*');
 --yk_vid = filter userurl by (host matches '.*\\.youku\\.com') or (host matches '.*\\.ykimg\\.com');
-yk_vid = filter userurl by (host matches '.*\\.youku\\.com') and (uri matches '/v_show/id_[A-Za-z0-9]+=+.*' or uri matches '/.*videos/[A-Za-z0-9]+=+/(comments|download)\\?.*' or uri matches '/a/vid_[A-Za-z0-9]+=+_id_.*' or uri matches '/embed/[A-Za-z0-9]+=+.*' or uri matches '/player\\.php/.*sid/[A-Za-z0-9]+=+/.*v.swf.*');
+yk_vid = filter userurl by (host matches '.*\\.youku\\.com') and (uri matches '/v_show/id_[A-Za-z0-9=]+.*' or uri matches '/.*videos/[A-Za-z0-9=]+/(comments|download)\\?.*' or uri matches '/a/vid_[A-Za-z0-9=]+_id_.*' or uri matches '/embed/[A-Za-z0-9=]{5,}(?!.*/.*).*' or uri matches '/player\\.php/.*sid/[A-Za-z0-9=]+/.*v.swf.*');
 yk_log = foreach yk_vid generate sttime, endtime, uip, sip, iptype, uport, sport, imsi, lac, ci, upbytes, downbytes, method, rcode, ctype, clength, host, uri;
 yk_log_order = order yk_log by $7, $0;
 store yk_log_order into '/user/lichenyu/youku/heilongjiang_v2_20151218';

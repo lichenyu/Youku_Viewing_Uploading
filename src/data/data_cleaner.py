@@ -1,12 +1,15 @@
 import re
 
 def get_vid_from_uri(uri):
-    # '/v_show/id_[A-Za-z0-9]+=+.*'
-    # '/.*videos/[A-Za-z0-9]+=+/(comments|download)\\?.*'
-    # '/a/vid_[A-Za-z0-9]+=+_id_.*'
-    # '/embed/[A-Za-z0-9]+=+.*'
-    # '/player\\.php/.*sid/[A-Za-z0-9]+=+/.*v.swf.*'
-    vid_re = re.compile('[A-Za-z0-9]+=+')
+    
+    # '/v_show/id_[A-Za-z0-9=]+.*'
+    # '/.*videos/[A-Za-z0-9=]+/(comments|download)\\?.*'
+    # '/a/vid_[A-Za-z0-9=]+_id_.*'
+    # '/embed/[A-Za-z0-9=]{5,}(?!.*/.*).*'
+    # '/player\\.php/.*sid/[A-Za-z0-9=]+/.*v.swf.*'
+    
+    vid_re = re.compile('[A-Za-z0-9=]+')
+    
     # directly get vid
     if uri.startswith('/v_show/id_') or uri.startswith('/a/vid_') or uri.startswith('/embed/'):
         match = vid_re.search(uri)
