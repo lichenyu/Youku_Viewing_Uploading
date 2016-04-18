@@ -8,20 +8,30 @@ def get_vid_from_uri(uri):
     # '/embed/[A-Za-z0-9=]{5,}(?!.*/.*).*'
     # '/player\\.php/.*sid/[A-Za-z0-9=]+/.*v.swf.*'
     
-    vid_re = re.compile('[A-Za-z0-9=]+')
+    vid_re = re.compile('[A-Za-z0-9=]{5,}')
+    
     
     # directly get vid
-    if uri.startswith('/v_show/id_') or uri.startswith('/a/vid_') or uri.startswith('/embed/'):
-        match = vid_re.search(uri)
-        vid = uri[match.start(0) : match.end(0)]
+    if uri.startswith('/v_show/id_'):
+        temp = uri[len('/v_show/id_') : ]
+        match = vid_re.search(temp)
+        vid = temp[match.start(0) : match.end(0)]
+    elif uri.startswith('/a/vid_'):
+        temp = uri[len('/a/vid_') : ]
+        match = vid_re.search(temp)
+        vid = temp[match.start(0) : match.end(0)]
+    elif uri.startswith('/embed/'):
+        temp = uri[len('/embed/') : ]
+        match = vid_re.search(temp)
+        vid = temp[match.start(0) : match.end(0)]
     # find 'sid/'
     elif uri.startswith('/player.php/'):
-        temp = uri[uri.find('sid/') : ]
+        temp = uri[uri.find('sid/') + len('sid/') : ]
         match = vid_re.search(temp)
         vid = temp[match.start(0) : match.end(0)]
     # find 'videos/'
     else:
-        temp = uri[uri.find('videos/') : ]
+        temp = uri[uri.find('videos/') + len('videos/') : ]
         match = vid_re.search(temp)
         vid = temp[match.start(0) : match.end(0)]
     return vid
@@ -29,7 +39,7 @@ def get_vid_from_uri(uri):
 if __name__ == '__main__':
     workpath = '/Users/ouyangshuxin/Documents/Youku_Watching_Uploading/data/playback/'
     
-    in_fd = open(workpath + 'heilongjiang_v2_20151212', 'r')
+    in_fd = open(workpath + 'heilongjiang_v2_20151218', 'r')
     out_fd = open(workpath + 'testout', 'w')
     
     for line in in_fd.readlines():
@@ -39,14 +49,11 @@ if __name__ == '__main__':
         # 10: upbytes, 11: downbytes, 12: method, 13: rcode, 14: ctype, 
         # 15: clength, 16: host, 17: uri;
         vid = get_vid_from_uri(fields[17])
-        out_fd.write(vid + '\n')
-        if 17 != len(vid):
-        #if False == vid.startswith('X'):
-            print(vid)
-            print(line)
-            print('')
+        out_fd.write(vid + '\t '+ fields[7] + '\n')
     
     
     in_fd.close()
     out_fd.close()
+    
+    print('All Done!')
     
