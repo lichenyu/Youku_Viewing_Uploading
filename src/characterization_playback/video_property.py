@@ -63,6 +63,11 @@ if '__main__' == __name__:
     
     date_strs = ['20151212', '20151213', '20151214', '20151215', '20151216', '20151217', '20151218']
     
+    for d in date_strs:
+        in_files = []
+        in_files.append(workpath + 'characterization/playback/viewer_request/viewer_reqvid_' + d)
+        get_vid_list(in_files, workpath + 'characterization/playback/video property/vidlist_' + d)
+    
 #     in_files = []
 #     for d in date_strs:
 #         in_files.append(workpath + 'characterization/playback/viewer_request/viewer_reqvid_' + d)
@@ -71,10 +76,10 @@ if '__main__' == __name__:
 #     mc.get_video_metadata(workpath + 'characterization/playback/video property/vidlist', 
 #                           workpath + 'characterization/playback/video property/video-metadata')
 
-    get_catedur(workpath + 'characterization/playback/video property/video-metadata', 
-                workpath + 'characterization/playback/video property/vidlist', 
-                workpath + 'characterization/playback/video property/cat',
-                workpath + 'characterization/playback/video property/dur',)
+#     get_catedur(workpath + 'characterization/playback/video property/video-metadata', 
+#                 workpath + 'characterization/playback/video property/vidlist', 
+#                 workpath + 'characterization/playback/video property/cat',
+#                 workpath + 'characterization/playback/video property/dur',)
     
     print('All Done!')
     
