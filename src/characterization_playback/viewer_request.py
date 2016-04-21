@@ -47,6 +47,7 @@ def get_viewer_reqlist(in_file, viewer_req_file, viewer_reqvid_file, replay_thr)
                 viewer_reqvid_fd.write('\t' + vid)
                 vid_time_map[vid] = fields[0]
     
+    viewer_reqvid_fd.write('\n')
     in_fd.close()
     viewer_req_fd.close()
     viewer_reqvid_fd.close()
