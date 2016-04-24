@@ -19,7 +19,7 @@ plot(cdf_uploading_dur, verticals = TRUE, do.points = FALSE, col.01line = NULL,
      main = '', sub = '', xlab = 'Video Duration (minutes)', ylab = 'CDF', 
      lwd = 2, col = 'blue')
 lines(cdf_playback_dur, verticals = TRUE, do.points = FALSE, col.01line = NULL, lwd = 2, col = 'red')
-axis(side = 1, at = seq(0, 3600, 600), labels = seq(0, 3600, 600), las = 1, tck = 1, lty = 2, col = 'grey')
+axis(side = 1, at = seq(0, 3600, 600), labels = seq(0, 3600, 600) / 60, las = 1, tck = 1, lty = 2, col = 'grey')
 axis(side = 2, at = seq(0, 1, 0.1), labels = seq(0, 1, 0.1), las = 1, tck = 1, lty = 2, col = 'grey')
 legend("bottomright", 
        lwd = c(2, 2), col = c('blue', 'red'), 

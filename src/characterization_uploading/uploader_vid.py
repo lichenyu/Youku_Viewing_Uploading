@@ -34,17 +34,44 @@ def get_uploader_vidcount(in_file, out_file):
         out_fd.write(fields[0] + '\t' + str(len(fields) - 1) + '\n')
     in_fd.close()
     out_fd.close()
+    
+def check_pareto(in_files, out_file):
+    vidcount_list = []
+    for in_file in in_files:
+        in_fd = open(in_file, 'r')
+        for line in in_fd.readlines():
+            fields = line.strip().split('\t', -1)
+            # uid, vidcount
+            vidcount_list.append(int(fields[1]))
+        in_fd.close()
+    print(len(vidcount_list))
+    
+    vidcount_list.sort(reverse = True)
+    s = sum(vidcount_list)
+    print(s)
+    cur = 0
+    out_fd = open(out_file, 'w')
+    for i in range(0, len(vidcount_list)):
+        cur = cur + vidcount_list[i]
+        out_fd.write(str(i) + '\t' + '%.04f' % (1. * i / len(vidcount_list)) + '\t' + '%.04f' % (1. * cur / s) + '\n')
+    out_fd.close()
 
 if '__main__' == __name__:
     workpath = '/Users/ouyangshuxin/Documents/Youku_Watching_Uploading/'
     
     date_strs = ['2015-12-12', '2015-12-13', '2015-12-14', '2015-12-15', '2015-12-16', '2015-12-17', '2015-12-18']
     
+#     for d in date_strs:
+#         get_uploader_vidlist(workpath + 'data/uploading/clean/vid/' + d, 
+#                              workpath + 'data/uploading/video meta-data/' + d + '_' + d, 
+#                              workpath + 'characterization/uploading/uploader_vid/' + 'uploader_vid_' + d)
+#         get_uploader_vidcount(workpath + 'characterization/uploading/uploader_vid/' + 'uploader_vid_' + d, 
+#                               workpath + 'characterization/uploading/uploader_vid/' + 'uploader_vidcount_' + d)
+    
+    in_files = []
     for d in date_strs:
-        get_uploader_vidlist(workpath + 'data/uploading/clean/vid/' + d, 
-                             workpath + 'data/uploading/video meta-data/' + d + '_' + d, 
-                             workpath + 'characterization/uploading/uploader_vid/' + 'uploader_vid_' + d)
-        get_uploader_vidcount(workpath + 'characterization/uploading/uploader_vid/' + 'uploader_vid_' + d, 
-                              workpath + 'characterization/uploading/uploader_vid/' + 'uploader_vidcount_' + d)
+        in_files.append(workpath + 'characterization/uploading/uploader_vid/' + 'uploader_vidcount_' + d)
+    check_pareto(in_files, workpath + 'characterization/uploading/uploader_vid/check_pareto')
+    
     
     print('All Done!')

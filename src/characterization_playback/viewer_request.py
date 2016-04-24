@@ -88,21 +88,47 @@ def get_vidcount(in_file, out_file):
     out_fd = open(out_file, 'w')
     out_fd.write(str(len(vid_set)) + '\n')
     out_fd.close()
+    
+def check_pareto(in_files, out_file):
+    reqcount_list = []
+    for in_file in in_files:
+        in_fd = open(in_file, 'r')
+        for line in in_fd.readlines():
+            fields = line.strip().split('\t', -1)
+            # uid, reqcount
+            reqcount_list.append(int(fields[1]))
+        in_fd.close()
+    print(len(reqcount_list))
+    
+    reqcount_list.sort(reverse = True)
+    s = sum(reqcount_list)
+    print(s)
+    cur = 0
+    out_fd = open(out_file, 'w')
+    for i in range(0, len(reqcount_list)):
+        cur = cur + reqcount_list[i]
+        out_fd.write(str(i) + '\t' + '%.04f' % (1. * i / len(reqcount_list)) + '\t' + '%.04f' % (1. * cur / s) + '\n')
+    out_fd.close()
 
 if __name__ == '__main__':
     workpath = '/Users/ouyangshuxin/Documents/Youku_Watching_Uploading/'
     
     date_strs = ['20151212', '20151213', '20151214', '20151215', '20151216', '20151217', '20151218']
     
+#     for d in date_strs:
+#         get_viewer_reqlist(workpath + 'data/playback/heilongjiang_v2_' + d, 
+#                            workpath + 'characterization/playback/viewer_request/viewer_req_' + d, 
+#                            workpath + 'characterization/playback/viewer_request/viewer_reqvid_' + d, 
+#                            60)
+#         get_viewer_reqcount(workpath + 'characterization/playback/viewer_request/viewer_reqvid_' + d, 
+#                             workpath + 'characterization/playback/viewer_request/viewer_reqcount_' + d)
+#         get_viewer_vidcount(workpath + 'characterization/playback/viewer_request/viewer_reqvid_' + d, 
+#                             workpath + 'characterization/playback/viewer_request/viewer_unividcount_' + d)
+
+    in_files = []
     for d in date_strs:
-        get_viewer_reqlist(workpath + 'data/playback/heilongjiang_v2_' + d, 
-                           workpath + 'characterization/playback/viewer_request/viewer_req_' + d, 
-                           workpath + 'characterization/playback/viewer_request/viewer_reqvid_' + d, 
-                           60)
-        get_viewer_reqcount(workpath + 'characterization/playback/viewer_request/viewer_reqvid_' + d, 
-                            workpath + 'characterization/playback/viewer_request/viewer_reqcount_' + d)
-        get_viewer_vidcount(workpath + 'characterization/playback/viewer_request/viewer_reqvid_' + d, 
-                            workpath + 'characterization/playback/viewer_request/viewer_unividcount_' + d)
+        in_files.append(workpath + 'characterization/playback/viewer_request/viewer_reqcount_' + d)
+    check_pareto(in_files, workpath + 'characterization/playback/viewer_request/check_pareto')
     
     print('All Done!')
 

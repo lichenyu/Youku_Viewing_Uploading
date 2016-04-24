@@ -13,7 +13,8 @@ def get_dur(vid_file, json_file, dur_file):
     for line in json_fd.readlines():
         video_json = json.loads(line.strip())
         if video_json['id'] in vid_set and None != video_json['duration']:
-            dur_fd.write(video_json['duration'] + '\n')
+            dur_fd.write(video_json['duration'] + '\t')
+            dur_fd.write(video_json['category'].encode('utf-8') + '\n')
     json_fd.close()
     dur_fd.close()
     
@@ -45,16 +46,16 @@ if '__main__' == __name__ :
     
     date_strs = ['2015-12-12', '2015-12-13', '2015-12-14', '2015-12-15', '2015-12-16', '2015-12-17', '2015-12-18']
     
-#     for d in date_strs:
-#         get_dur(workpath + 'data/uploading/clean/vid/' + d, 
-#                 workpath + 'data/uploading/video meta-data/' + d + '_' + d, 
-#                 workpath + 'characterization/uploading/video property/' + 'dur_' + d)
-#         
-#     in_files = []
-#     for d in date_strs:
-#         in_files.append(workpath + 'characterization/uploading/video property/' + 'dur_' + d)
-#     udc.merge_files(in_files, 
-#                     workpath + 'characterization/uploading/video property/' + 'dur')
+    for d in date_strs:
+        get_dur(workpath + 'data/uploading/clean/vid/' + d, 
+                workpath + 'data/uploading/video meta-data/' + d + '_' + d, 
+                workpath + 'characterization/uploading/video property/' + 'dur_' + d)
+         
+    in_files = []
+    for d in date_strs:
+        in_files.append(workpath + 'characterization/uploading/video property/' + 'dur_' + d)
+    udc.merge_files(in_files, 
+                    workpath + 'characterization/uploading/video property/' + 'dur')
     
     in_files = []
     for d in date_strs:

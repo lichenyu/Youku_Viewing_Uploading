@@ -31,8 +31,8 @@ def get_catedur(json_file, vid_file, cat_file, dur_file):
     
     cat_count_map = {}
     cat_count_total = 0
-    dur_list = []
     vid_fd = open(vid_file, 'r')
+    dur_fd = open(dur_file, 'w')
     for line in vid_fd.readlines():
         vid = line.strip()
         if vid_cat_map.has_key(vid):
@@ -43,8 +43,10 @@ def get_catedur(json_file, vid_file, cat_file, dur_file):
             else:
                 cat_count_map[cat] = 1
         if vid_dur_map.has_key(vid) and None != vid_dur_map[vid]:
-            dur_list.append(vid_dur_map[vid])
+            dur_fd.write(vid_dur_map[vid] + '\t')
+            dur_fd.write(vid_cat_map[vid].encode('utf-8') + '\n')
     vid_fd.close()
+    dur_fd.close()
     
     cat_fd = open(cat_file, 'w')
     sorted_map = sorted(cat_count_map.items(), lambda i1, i2: cmp(i1[1], i2[1]), reverse = True)
@@ -52,10 +54,6 @@ def get_catedur(json_file, vid_file, cat_file, dur_file):
         cat_fd.write(item[0].encode('utf-8'))
         cat_fd.write('\t' + str(item[1]) + '\t' + str(100. * item[1] / cat_count_total) + '\n')
     cat_fd.close()
-    dur_fd = open(dur_file, 'w')
-    for dur in dur_list:
-        dur_fd.write(dur + '\n')
-    dur_fd.close()
 
 if '__main__' == __name__:
     
@@ -76,10 +74,10 @@ if '__main__' == __name__:
 #     mc.get_video_metadata(workpath + 'characterization/playback/video property/vidlist', 
 #                           workpath + 'characterization/playback/video property/video-metadata')
 
-#     get_catedur(workpath + 'characterization/playback/video property/video-metadata', 
-#                 workpath + 'characterization/playback/video property/vidlist', 
-#                 workpath + 'characterization/playback/video property/cat',
-#                 workpath + 'characterization/playback/video property/dur',)
+    get_catedur(workpath + 'characterization/playback/video property/video-metadata', 
+                workpath + 'characterization/playback/video property/vidlist', 
+                workpath + 'characterization/playback/video property/cat',
+                workpath + 'characterization/playback/video property/dur',)
     
     print('All Done!')
     

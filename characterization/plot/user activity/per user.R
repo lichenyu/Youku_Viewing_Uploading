@@ -37,7 +37,8 @@ reqvid_count = rbind(viewer_reqcount_20151212[2],
 
 
 pdf(paste(workpath, "plot/user activity/per user.pdf", sep = ''), 
-    width = 5, height = 4)
+    width = 10, height = 4)
+par(mfrow = c(1, 2), cex = 1)
 
 
 
@@ -46,7 +47,7 @@ cdf_upvid = ecdf(upvid_count[, 1])
 par(mar=c(5, 4, 1, 2))
 plot(cdf_upvid, verticals = TRUE, do.points = FALSE, col.01line = NULL, 
      axes = FALSE, xaxs="i",yaxs="i", xlim = c(0, 10), ylim = c(0, 1), 
-     main = '', sub = '', xlab = 'Count', ylab = 'CDF', 
+     main = '', sub = '(a)', xlab = 'Count', ylab = 'CDF', 
      lwd = 2, col = 'blue')
 cdf_reqvid = ecdf(reqvid_count[, 1])
 lines(cdf_reqvid, verticals = TRUE, do.points = FALSE, col.01line = NULL, lwd = 2, col = 'red')
@@ -55,6 +56,29 @@ axis(side = 2, at = seq(0, 1, 0.1), labels = seq(0, 1, 0.1), las = 1, tck = 1, l
 legend("bottomright", 
        lwd = c(2, 2), col = c('blue', 'red'), 
        legend = c("Video Count per Uploader","Request Count per Viewer"), bg = "white", cex = 0.8)
+box()
+
+
+
+uploading_check_pareto = read.table(paste(workpath, 'uploading/uploader_vid/check_pareto', sep = ''))
+playback_check_pareto = read.table(paste(workpath, 'playback/viewer_request/check_pareto', sep = ''))
+x1 = uploading_check_pareto$V2
+y1 = uploading_check_pareto$V3
+x2 = playback_check_pareto$V2
+y2 = playback_check_pareto$V3
+
+#d,l,u,r
+par(mar=c(5, 4, 1, 2))
+plot(x1, y1, type = 'l', 
+     axes = FALSE, xaxs = 'i', yaxs = 'i', xlim = c(0, 1), ylim = c(0, 1), 
+     main = '', sub = '(b)', xlab = 'Proportion of Users', ylab = 'Percentage of Videos or Requests', 
+     lwd = 2, col = 'blue')
+lines(x2, y2, type = 'l', lwd = 2, col = 'red')
+axis(side = 1, at = seq(0, 1, 0.1), labels = seq(0, 1, 0.1), las = 1, tck = 1, lty = 2, col = 'grey')
+axis(side = 2, at = seq(0, 1, 0.1), labels = seq(0, 1, 0.1), las = 1, tck = 1, lty = 2, col = 'grey')
+legend("bottomright", 
+       lwd = c(2, 2), col = c('blue', 'red'), 
+       legend = c("Uploaders","Viewers"), bg = "white", cex = 0.8)
 box()
 
 
