@@ -19,7 +19,7 @@ def get_age(date_str, json_file, vid_file, age_file):
     for line in vid_fd.readlines():
         vid = line.strip()
         if vid_age_map.has_key(vid):
-            age_fd.write(str(vid_age_map[vid]) + '\n')
+            age_fd.write(str(vid_age_map[vid]) + '\t' + vid + '\n')
     vid_fd.close()
     age_fd.close()
 

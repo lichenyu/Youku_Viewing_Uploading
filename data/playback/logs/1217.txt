@@ -1,0 +1,31 @@
+Job Stats (time in seconds):
+JobId	Maps	Reduces	MaxMapTime	MinMapTIme	AvgMapTime	MedianMapTime	MaxReduceTime	MinReduceTime	AvgReduceTime	MedianReducetime	Alias	Feature	Outputs
+job_1460692478270_2453	514	1	461	136	286	276	385	385	385	385	log_count,log_group,userurl	GROUP_BY,COMBINER	hdfs://namenode:8020/tmp/temp-275620605/tmp-415656897,
+
+Input(s):
+Successfully read 1697933674 records (137622015072 bytes) from: "/import_data/userurl/gn/cm/heilongjiang_v2/20151217/*"
+
+Output(s):
+Successfully stored 1 records (9 bytes) in: "hdfs://namenode:8020/tmp/temp-275620605/tmp-415656897"
+
+Counters:
+Total records written : 1
+Total bytes written : 9
+Spillable Memory Manager spill count : 0
+Total bags proactively spilled: 510
+Total records proactively spilled: 385433603
+
+Job DAG:
+job_1460692478270_2453
+
+
+2016-04-26 21:34:25,042 [uber-SubtaskRunner] WARN  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher  - Encountered Warning TOO_LARGE_FOR_INT 4136 time(s).
+2016-04-26 21:34:25,042 [uber-SubtaskRunner] WARN  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher  - Encountered Warning FIELD_DISCARDED_TYPE_CONVERSION_FAILED 1249795197 time(s).
+2016-04-26 21:34:25,042 [uber-SubtaskRunner] WARN  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher  - Encountered Warning ACCESSING_NON_EXISTENT_FIELD 55158 time(s).
+2016-04-26 21:34:25,042 [uber-SubtaskRunner] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher  - Success!
+2016-04-26 21:34:25,045 [uber-SubtaskRunner] INFO  org.apache.hadoop.conf.Configuration.deprecation  - fs.default.name is deprecated. Instead, use fs.defaultFS
+2016-04-26 21:34:25,046 [uber-SubtaskRunner] INFO  org.apache.pig.data.SchemaTupleBackend  - Key [pig.schematuple] was not set... will not generate code.
+2016-04-26 21:34:25,053 [uber-SubtaskRunner] INFO  org.apache.hadoop.mapreduce.lib.input.FileInputFormat  - Total input paths to process : 1
+2016-04-26 21:34:25,053 [uber-SubtaskRunner] INFO  org.apache.pig.backend.hadoop.executionengine.util.MapRedUtil  - Total input paths to process : 1
+(1697931587)
+Hadoop Job IDs executed by Pig: job_1460692478270_2453

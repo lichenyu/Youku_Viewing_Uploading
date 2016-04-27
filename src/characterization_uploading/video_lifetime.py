@@ -36,7 +36,7 @@ if '__main__' == __name__:
     
     get_video_lifetime(workpath + 'data/uploading/clean/view count clean increase/vci', 
                        workpath + 'characterization/uploading/video lifetime/lifetime', 
-                       100, 1. / 30, 5)
+                       100, 1.5 / 30, 5)
         
     print('All Done!')
     
