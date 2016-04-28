@@ -55,20 +55,24 @@ par(mfrow = c(1, 2), cex = 1)
 
 
 
+cols = rainbow(4)
 d_uploading = rbind(uploader_count, upvid_count)
 #d,l,u,r
 par(mar=c(5, 4, 1, 2))
 barpos = barplot(d_uploading, beside = TRUE, 
                  ylim = c(0, 30000), axes = FALSE, 
                  main = '', sub = '(a)', xlab = 'Date', ylab = 'Count', names.arg = rep('', 7),
-                 col = c('grey', 'white'), border = 'grey')
+                 col = c(cols[1], cols[2]), border = 'grey', 
+                 density = rep(20, 4), 
+                 angle = c(45, 135, 45, 135, 45, 135))
 axis(side = 1, at = c((barpos[2]+barpos[1])/2, (barpos[4]+barpos[3])/2), 
      labels = c('12/12', '12/13'), col = 'white', col.axis = 'red', las = 2, mgp = c(3, 0.75, 0))
 axis(side = 1, at = seq((barpos[2]+barpos[1])/2, (barpos[14]+barpos[13])/2, barpos[3]-barpos[1]), 
      labels = c('', '', '12/14', '12/15', '12/16', '12/17', '12/18'), las = 2, mgp = c(3, 0.75, 0))
 axis(side = 2, at = seq(0, 25000, 5000), labels = seq(0, 25000, 5000), las = 1, mgp = c(3, 0.75, 0)) 
 legend("topright", inset = c(0.01, 0.01), 
-       fill = c('grey', 'white'), border = c("grey", "grey"), 
+       fill = c(cols[1], cols[2]), border = c("grey", "grey"), 
+       density = rep(20, 4), angle = c(45, 135, 45, 135, 45, 135),
        legend = c("Uploader Count","Video Count"), bg = "white", cex = 0.8)
 
 
@@ -79,14 +83,17 @@ par(mar=c(5, 4, 1, 2))
 barpos = barplot(d_playback, beside = TRUE, 
                  ylim = c(0, 20000), axes = FALSE, 
                  main = '', sub = '(b)', xlab = 'Date', ylab = 'Count', names.arg = rep('', 7),
-                 col = c('grey', 'white'), border = 'grey')
+                 col = c(cols[3], cols[4]), border = 'grey', 
+                 density = rep(20, 4), 
+                 angle = c(45, 135, 45, 135, 45, 135))
 axis(side = 1, at = c((barpos[2]+barpos[1])/2, (barpos[4]+barpos[3])/2), 
      labels = c('12/12', '12/13'), col = 'white', col.axis = 'red', las = 2, mgp = c(3, 0.75, 0))
 axis(side = 1, at = seq((barpos[2]+barpos[1])/2, (barpos[14]+barpos[13])/2, barpos[3]-barpos[1]), 
      labels = c('', '', '12/14', '12/15', '12/16', '12/17', '12/18'), las = 2, mgp = c(3, 0.75, 0))
 axis(side = 2, at = seq(0, 15000, 5000), labels = seq(0, 15000, 5000), las = 1, mgp = c(3, 0.75, 0)) 
 legend("topright", inset = c(0.01, 0.01), 
-       fill = c('grey', 'white'), border = c("grey", "grey"), 
+       fill = c(cols[3], cols[4]), border = c("grey", "grey"), 
+       density = rep(20, 4), angle = c(45, 135, 45, 135, 45, 135),
        legend = c("Viewer Count","Request Count"), bg = "white", cex = 0.8)
 
 
